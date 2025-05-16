@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id        Int           @id @default(autoincrement())
+  username  String
+  email     String        @unique
+  password  String
+  role      Role          @default(USER)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  vehicles  Vehicle[]
+  requests  SlotRequest[]
+  logs      Log[]
+}
+
+model Vehicle {
+  id          Int           @id @default(autoincrement())
+  plateNumber String        @unique
+  vehicleType String
+  size        String
+  attributes  Json?
+  userId      Int
+  user        User          @relation(fields: [userId], references: [id])
+  requests    SlotRequest[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model ParkingSlot {
+  id          Int           @id @default(autoincrement())
+  slotNumber  String        @unique
+  size        String
+  isAvailable Boolean       @default(true)
+  requests    SlotRequest[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+model SlotRequest {
+  id        Int           @id @default(autoincrement())
+  userId    Int
+  vehicleId Int
+  slotId    Int?
+  status    RequestStatus @default(PENDING)
+  startTime DateTime
+  endTime   DateTime?
+  user      User          @relation(fields: [userId], references: [id])
+  vehicle   Vehicle       @relation(fields: [vehicleId], references: [id])
+  slot      ParkingSlot?  @relation(fields: [slotId], references: [id])
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model Log {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  action    String
+  details   Json?
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
