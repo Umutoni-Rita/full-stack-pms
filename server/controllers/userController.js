@@ -25,7 +25,7 @@ const getUserById = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     //verify access (admin or plan user)
-    if (req.user.id !== userId && req.user.role !== "ADMIN") {
+    if (req.user.id !== userId && req.user.role !== "USER") {
       return res.status(403).json({ message: "Access denied" });
     }
     //return data
@@ -46,7 +46,7 @@ const updateUser = async (req, res) => {
     const { email, username, password } = req.body;
 
     //verify access
-    if (req.user.id !== userId && req.user.role !== "ADMIN") {
+    if (req.user.id !== userId && req.user.role !== "USER") {
       return res.status(403).json({ message: "Access denied" });
     }
 
@@ -70,7 +70,7 @@ const updateUser = async (req, res) => {
       select: {
         id: true,
         email: true,
-        name: true,
+        username: true,
         role: true,
         createdAt: true,
         updatedAt: true,

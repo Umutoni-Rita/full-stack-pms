@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.get('/:id', authenticate, getUserById);
 router.put('/:id', authenticate, updateUser);
-router.get('/', authenticate, isAdmin, getAllUsers);
+router.get('/', authenticate, getAllUsers);
+// router.get('/', authenticate, isAdmin, getAllUsers);
 
 module.exports = router;
 
