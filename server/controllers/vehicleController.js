@@ -28,7 +28,7 @@ const getVehicles = async (req, res) => {
   try {
     const vehicles = await prisma.vehicle.findMany({
       where: { userId: req.user.id },
-      orderBy: { createdAt: "desc" },
+      orderBy: { updatedAt: "desc" },
     });
     res.status(200).json({vehicles});
   } catch (error) {

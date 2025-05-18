@@ -103,7 +103,7 @@ const getAllUsers = async (req, res) => {
                 skip,
                 take: limitNum,
                 select: { id: true, email: true, username: true, role: true, createdAt: true, updatedAt: true },
-                orderBy: {createdAt: 'desc'} //starting from the most recent
+                orderBy: {updatedAt: 'desc'} //starting from the most recent
             }),
             prisma.user.count(), //total number of users for pagination calculation
         ]);
