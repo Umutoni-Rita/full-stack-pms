@@ -1,11 +1,24 @@
-const Dashboard = () => {
-  return (
-    <div className="flex justify-center items-center w-full min-h-screen bg-[#FFFFFF]">
-      <div className="flex flex-col items-center p-5 m-5 rounded-md shadow-md bg-[#E5E7EB]">
-        <h1 className="font-bold text-2xl text-[#1E6A6E]">Welcome to the Vehicle Management System</h1>
-      </div>
-    </div>
-  );
-};
+import { useState } from 'react';
+    import VehicleList from './VehicleList';
+    import VehicleForm from '../components/VehicleForm';
+    import colors from '../config/colors';
 
-export default Dashboard;
+    const Dashboard = () => {
+      const [refresh, setRefresh] = useState(false);
+
+      const handleAdd = () => {
+        setRefresh(!refresh);
+      };
+
+      return (
+        <div className={`flex flex-col items-center p-5 min-h-screen bg-[${colors.background}]`}>
+          <h1 className={`font-bold text-2xl mb-4 text-[${colors.primary}]`}>
+            Vehicle Management System
+          </h1>
+          <VehicleForm onAdd={handleAdd} />
+          <VehicleList key={refresh} />
+        </div>
+      );
+    };
+
+    export default Dashboard;
