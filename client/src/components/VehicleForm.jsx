@@ -24,7 +24,7 @@ import { useState } from 'react';
             ...formData,
             attributes: formData.attributes ? JSON.parse(formData.attributes) : null,
           };
-          await axios.post('http://localhost:5000/api/vehicles', data, {
+          await axios.post('http://localhost:5000/api/vehicle', data, {
             headers: { Authorization: `Bearer ${token}` },
           });
           alert('Vehicle added successfully');

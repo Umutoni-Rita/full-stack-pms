@@ -8,9 +8,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-// app.use("/", (req, res) => {
-//   res.send("Welcome to VMS");
-// });
+app.get("/", (req, res) => {
+  res.send("Welcome to VMS");
+});
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/vehicle", vehicleRoutes);

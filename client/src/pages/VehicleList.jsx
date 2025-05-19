@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
         try {
           const token = localStorage.getItem('token');
           const response = await axios.get(
-            `http://localhost:5000/api/vehicles?page=${page}&limit=${limit}`,
+            `http://localhost:5000/api/vehicle?page=${page}&limit=${limit}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
@@ -34,7 +34,7 @@ import { useEffect, useState } from 'react';
         if (window.confirm('Are you sure you want to delete this vehicle?')) {
           try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:5000/api/vehicles/${id}`, {
+            await axios.delete(`http://localhost:5000/api/vehicle/${id}`, {
               headers: { Authorization: `Bearer ${token}` },
             });
             fetchVehicles();
