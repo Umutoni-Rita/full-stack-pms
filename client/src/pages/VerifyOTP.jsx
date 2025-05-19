@@ -19,6 +19,7 @@ const VerifyOTP = () => {
     e.preventDefault();
     try {
       await verifyOTP({ email, otp });
+      localStorage.removeItem('tempEmail')
       alert("Email verified! Please login.");
       navigate("/");
     } catch (err) {

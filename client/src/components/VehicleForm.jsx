@@ -18,12 +18,14 @@ import { useState } from 'react';
 
       const handleSubmit = async (e) => {
         e.preventDefault();
+        // is user authenticated? check for token
         try {
           const token = localStorage.getItem('token');
           const data = {
             ...formData,
             attributes: formData.attributes ? JSON.parse(formData.attributes) : null,
           };
+          // add data to the backend
           await axios.post('http://localhost:5000/api/vehicle', data, {
             headers: { Authorization: `Bearer ${token}` },
           });
@@ -40,7 +42,7 @@ import { useState } from 'react';
         <form onSubmit={handleSubmit} className={`p-4 bg-[${colors.accent}] rounded-md shadow-md`}>
           <h2 className={`text-xl font-bold mb-4 text-[${colors.primary}]`}>Add Vehicle</h2>
           <Input
-            placeholder="Plate Number (e.g., ABC123)"
+            placeholder="Plate Number (e.g., RAC322T)"
             name="plateNumber"
             type="text"
             onChange={handleChange}

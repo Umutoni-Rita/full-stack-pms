@@ -21,6 +21,7 @@ const Signup = () => {
     try {
       await registerUser(form);
       alert("OTP code sent! Check your email");
+      localStorage.setItem('tempEmail', form.email); //Store the email for later OTP verification
       navigate("/verify", {state: {email: form.email}});
     } catch (err) {
       console.error("Signup failed: ", err.response?.data?.message || err.message);

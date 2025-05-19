@@ -20,11 +20,12 @@ const ProtectedRoute = ({requireEmail = false}) => {
     }
 
     //For routes requiring email
-    const hasEmail = requireEmail? !!location.state?.email : true;
+    // const storedEmail = localStorage.getItem('tempEmail');
+    // const hasEmail = requireEmail? !!storedEmail || !!location.state?.email : true;
 
-    if(!isValidToken || !hasEmail) {
-        return <Navigate to="/" state={{from: location}} replace />
-    }
+    // if(!isValidToken || !hasEmail) {
+    //     return <Navigate to="/" state={{from: location}} replace />
+    // }
 
     return <Outlet />;
 }
